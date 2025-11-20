@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>On MIT and addressing other Licenses | Thomas E</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" type="text/css" href="../style.css">
+        <link rel="icon" href="../res/2467883_08350.gif">
+    </head>
+    <body>
+        <div class="crt">
+        <img src="../res/a5.gif"><a href="https://www.artixlinux.org"><img src="../res/a46.jpg"></a><a href="https://neocities.org/"><img src="../res/a89.gif"></a><a href="https://videos.lukesmith.xyz/w/p/tY3gztq1BN3FYiDSxQKq7B?playlistPosition=7&resume=true"><img src="../res/a11.gif"></a>
+        <div class="banner">
+        <img src="../res/footerline.gif">
+        </div>
+        <div class="box">
+        <h1>A Better way to 'optimize</h1>
+
+        <p>
+            Imagine this, you have a scene with thousands of little points joined together that we call vertices. This scene has various models, textures, lighting, etc. When things
+            especially get complex, you start to realize that your GPU is only so powerful.. So, you implement a 'fix'. This 'fix' is what's known as frustum calling. The basic gist of it
+            is, you only render what you can see. By default, when this isn't implemented, you are usually rendering the entire world around you even what you cannot see. This is fine but
+            quickly becomes a problem when aiming to build especially complex scenary. So, you trim out the fatigue and stop the world from rendering around you, but only what's in front
+            of you.
+        </p>
+
+        <p>
+            Well, today I say screw that! I am introducing a new thereotical model that when implemented, could actually be revolutionary. Now, if you're particular fundamentalists, you can see
+            the issue here. This Solution I described in the above paragraph has a core issue and it's that the world is number #1 still technically rendering. You have a constant loop in the background
+            that is constantly commanding the Engine to only render what is in view.
+        </p>
+
+        <p>
+            And while this is okay, especially if you're CPU is particularly fast, it's inefficient. The Vertices that are in your GPU are ultimately still loaded even when not being rendered.
+            My algorithm comes down to this: "Not only render, but only use what is needed.". The Engine still 'uses' the vertices for a "just in case" scenario when the player turns directions.
+            My implementation will not only not Render the vertices, but the engine won't even load the vertices in the GPU. This make's more room for what is infront of the player.
+        </p>
+
+        <p>
+            If done right, this could increase the performance to absurd levels. Only load what is needed.
+        </p>
+
+        </div>
+        <img src="../res/a92.gif"><img src="../res/norton2.gif"><img src="../res/h40.gif"><img src="../res/y53.gif"><img src="../res/y29.gif"><img src="../res/k27.gif">
+        <div class="copyright">
+            <img src="../res/footerline.gif">
+            © 2025 Thomas E. (<a href="index.html">ThomasE.xyz</a>)
+        </div>
+        </div>
+    </body>
+</html>
