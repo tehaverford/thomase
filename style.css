@@ -199,7 +199,7 @@ ul {
 }
 
 .quote {
-    display: flex;
+    /*display: flex;*/
     padding: 12px;
     border: 3px solid #0000;
     border-radius: 12px;
@@ -321,7 +321,7 @@ indent {
 
 .box {
     padding: 20px;
-    background-color: rgba(0, 0, 0, 0.103);
+    background-color: rgba(94, 82, 82, 0.199);
     border: 5px solid rgb(89, 0, 255);
     border-radius: 67px;
     padding: 12px;
@@ -361,6 +361,7 @@ indent {
   border-radius: 12px;
   max-width: 100%;
   height: auto;
+  object-fit: cover;
 }
 
 .boximg {
