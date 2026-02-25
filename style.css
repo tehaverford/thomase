@@ -231,12 +231,12 @@ ul {
   justify-content: center;
   align-items: center;
   padding: 12px;
-  border: 3px solid #0000;
+  border: 4px solid #fc7100;
   border-radius: 12px;
-  background: linear-gradient(#131219, #131219) padding-box, linear-gradient(
+  background: linear-gradient(#0000008c, #4312caa6) padding-box, linear-gradient(
         var(--angle),
-        #000000,
-        #787679
+        #0e4ed8,
+        #1221ee
       ) border-box;
   animation: 8s rotate linear infinite;
 }
