@@ -10,7 +10,18 @@
     <body>
         <div class="crt">
         <div class="box">
-        <h3>The beautiful simplicity and powerfulness of feedforward Neural Networks</h3>
+        <h1>The beautiful simplicity and powerfulness of feedforward Neural Networks</h1>
+        <h2>Table of contents</h2>
+        <div class="TOC">
+        <ul>
+            <li><a href="#section1">"A Neural network? Like.. the brain?"</a></li>
+            <li><a href="#section2">Feedforward Neural networks: At first glance</a></li>
+            <li><a href="#section3">Mechanism of Feedforward Neural Networks</a></li>
+            <ul>
+                <li><a href="#section3.1">Each Individual Layer</a></li>
+            </ul>
+        </ul>
+        </div>
         <p>
             I haven't been working on this website, posting anything, or really updating it due to my obsession with the topic of deeplearning. Deeplearning is a whole
             can of worms onto itself, but for simplicity sakes, we'll simply refer to it as Neural Networks.
@@ -20,7 +31,7 @@
             There are many types of Neural Networks that are geared towards one specific type of task, but in this post, we'll talk about feedforward Neural Networks.
         </p>
 
-        <h2>"A Neural network? Like.. the brain?"</h2>
+        <h2 id="section1">"A Neural network? Like.. the brain?"</h2>
         <p>
             Neural Networks are loosely inspired by our own biological Neural Networks as humans. These are the fundamental building blocks of how we as human beings learn and grow
             as a person. You might know the term 'Neural Networks' based on a pop-article explaining how ChatGPT worked on a surface level.
@@ -30,7 +41,7 @@
             Feedforward Neural Networks and biological Neural Networks have their differences and work in fundamentally different ways. So throwout your entire understanding of the human brain
             and learn about FFNNs (feedforward Neural Networks) as it's own entity.
         </p>
-        <h2>Feedforward Neural networks</h2>
+        <h2 id="section2">Feedforward Neural networks: At first glance</h2>
         <p>
             Feedforward Neural Networks are the defacto of machine learning, the process of training computers to learn from data and deal with unknown future input.
             A good example of this is spam-detection. Back then, (primarily in the 2000's) we had to use rule-based programs to detect and remove spam. This mean't detecting for
@@ -48,13 +59,13 @@
             These days, Feedforward Neural Networks are used for a variety of tasks including sentiment analysis, image classification (Although, convolutional Neural Networks have taken their place, seperate post for another time.),
             Some parts of video game NPCs, etc.
         </p>
-        <h2>Mechanism of Feedforward Neural Networks</h2>
+        <h2 id="section3">Mechanism of Feedforward Neural Networks</h2>
         <p>
             You might think that this technology requires satanic freemasonry black-magic from the dark-order in order to get right, but in reality, it's simply a bunch of addition and multiplication with a slice of calculus all chained together
             to get the 'intelligence' factor as a byproduct.
         </p>
         <div class="png">
-        <img src="https://learnopencv.com/wp-content/uploads/2017/10/mlp-diagram.jpg">
+        <a href="https://learnopencv.com/wp-content/uploads/2017/10/mlp-diagram.jpg"><img src="https://learnopencv.com/wp-content/uploads/2017/10/mlp-diagram.jpg"></a>
         </div>
 
         <p>
@@ -68,17 +79,14 @@
             </div>
         </p>
 
-        <h3>Each individual Layer</h3>
+        <h3 id="section3.1">Each individual Layer</h3>
         <p>
             Each layer has it's own respective purpose. The Input layer's job is to take in Data to be transformed before being sent into the Hidden Layer.
-            The Input layer typically take's in vectors (also known as tensors) which look like this in format: {0, 0} depending on the network architecture.
-            Each coefficent of the vector is split and sent into one Neuron (Again, sometimes a different process depending on Network architecture.)
+            The Input layer typically take's in vectors (also known as tensors) which look like this in format: {0, 0}. This vector is then sent into the Input layer
+            and transformed to what's essentially a new vector.
         </p>
         <p>
-            For instance, if you 3 values in vector X, then there is usually 3 or more Neurons to receive this data.
-        </p>
-        <p>
-            The Hidden Layer will then receieve this data and transforms it (using Activation function, coming up). This newly transformed data is then sent into the OutputLayer
+            The Hidden Layer will then receive this data and transform it (using Activation function, coming up). This newly transformed data is then sent into the OutputLayer
             which represents what the "conclusion" the HiddenLayer is 'thinking' of. For instance, if you're dealing with a spam network, and this information is being processed to the Hidden Layer,
             a trained network's hidden layer will process it and see it is spam, then it'll send the right signal to the OutputLayer indicating that it is indeed spam.
         </p>
@@ -115,7 +123,23 @@
         </p>
         <h3>Activation sum</h3>
         <p>
-            How are weights and biases added with respect to data before being sent into the next Layer? This is known as the activation sum, which looks like such:
+            How are weights and biases added with respect to data before being sent into the next Layer? This is known as the activation sum.
+        </p>
+        <p>
+            The general intuition of the weighted sum is this: Imagine you have a vector which has values {1, 2, 3}. You pass this into the Input Layer with 1 perceptron (or Neuron). Let's say the single weight of this perceptron is 0.40 (no bias), what happens?
+            What you essentially get is {0.4, 0.8, 1.2}. What happened?
+        </p>
+        <p>
+            Mathematically, this is what happened:
+        </p>
+        <p>
+            <div class="quote">
+                x = f(w * x1, w * x2, w * x3) + 0
+            </div>
+        </p>
+        <p>
+            If you're not mathematical at heart, this basically means that the perceptron took every value in the vector, and multiplied it with the corresponding weight. The exact same process is repeated for every perceptron when dealing with multineuron network. Say a network with
+            5 neurons, 12 hidden neurons, 3 output Neurons, or otherwise..
         </p>
         <p>
             <div class="quote">
@@ -126,11 +150,110 @@
             Where <i>y</i> is the output and <i>w</i> represents a single weight and <i>b</i> represents a single bias. The input is multiplied by our weight then adds the bias to it.
             This activation formula is stretched out for every single Neuron and input coefficent before being sent into the next layer.
         </p>
+        <p>
+            If this does not make much sense to you or leaves you off with some questions and confusion, do not worry, it will all make sense once you see the full implementation of it later on.
+        </p>
+        <h3>Non-Linear activation sums</h3>
+        <p>
+            "What, there's more?! I thought you just covered activation sums!" Yes yes, but there is just one tiny thing I would like to mention. Activation sums are typically 'squished' so to speak into a value. You see, in most neural networks, the raw weighted sum
+            is rarely just used, it's normally processed through another function of sorts with the goal of introducing what neural networks excel at: <i>Non-Linearity</i>.
+        </p>
+        <p>
+            You see, if we take our function:
+        </p>
+        <p>
+            <div class="quote">
+                y = f(y * w + b) <br>
+            </div>
+        </p>
+        <p>
+            Then we plot it on desmos, the function will look like this:
+        </p>
+        <div class="png">
+            <a href="../res/linearneural.PNG"><img src="../res/linearneural.PNG"></a>
+        </div>
+        <p>
+            What you see here is a relatively linear but slanted line which scales upwards. Anybody that's had a little bit of experience knows that this is pretty much what aa linear regressor looks like (seperate topic!).
+        </p>
+        <p>
+            Why is this a problem? Well, this prohibits the Neural Network from learning more complex patterns. By simply using the raw weighted sum, the only ability we have is training it to do tasks which involve upscale regression patterns such as predicting house-prices,
+            predicting numbers, measurements, etc. Those have their practical advantage, but what if we want to do more complex and impressive stuff such as simulating logic gates, classifying images between a cat or a dog, sentiment analysis, etc. At this point, the model could not possible
+            learn this. This is solved by introducing non-linearity.
+        </p>
+        <p>
+            How do we introduce non-linearity? Well, there's a million ways. There's many function thats you can use to do this topic and it highly depends on the task that you want your neural network to be trained on.
+        </p>
+        <p>
+            For most tasks thats not a regressor, you should go with sigmoid and start from there. The sigmoid function is defined as such:
+        </p>
+        <p>
+            <div class="quote">
+                s(x) = 1 / 1 + (math.exp(-x))
+            </div>
+        </p>
+        <p>
+            Let's see how this looks when applied to our model:
+        </p>
+        <div class="png">
+            <a href="../res/nonlinearneural.PNG"><img src="../res/nonlinearneural.PNG"></a>
+        </div>
+        <p>
+            Woah, super cool right? What just happened though?
+        </p>
+        <p>
+            2 things, the network now has a 'slanted point', a position where it stables out a bit without increasing leading to non-regression. This makes training much easier to do. And it also has a point where it increases rapidly, this optimizes the training time considerably
+            and make's finding the proper weights for the model much faster (known as gradient descent).
+        </p>
+        <p>
+            You can copy the desmos code yourself and play around with it. If all this still does not make sense, again, it will. The best way to learn deeplearning is to <i>do</i> deeplearning and apply it to practical examples.
+        </p>
+        <h2>FFNN: Training</h2>
+        <p>
+            How do these Networks 'learn' per say? We'll again, weights and biases (parameters) are the ultimate building blocks to what makes the prediction/output what it is. So, learning is basically just training the network how to adjust the weights in such a way that you get the
+            output that you want, thus an increase in accuracy.
+        </p>
+        <p>
+            There is a million different ways you can do training, not all of them are created equally though.
+        </p>
+        <p>
+            Some ways of training are efficient and fast with tradeoffs from accuracy, someways are more precise, etc.
+        </p>
+        <p>
+            To understand training, you must understand the training loop. Applying this to a practical example means letting the network first make a prediction. 9.9/10 the prediction will be incorrect, especially as your weights are starting off
+            from a completely random value (weight initialization is it's own can of worms). The training loop is as follows:
+        </p>
+        <p>
+            <div class="quote">
+                - Let the model make a prediction -> Compute how wrong it is (loss function) -> Adjust weights with respect to loss -> Make another prediction -> repeat..
+            </div>
+        </p>
+        <p>
+            A more visual representation of this would be:
+        </p>
+        <div class="png">
+            <a href="https://miro.medium.com/v2/resize:fit:1400/1*SCz0aTETjTYC864Bqjt6Og.png"><img src="https://miro.medium.com/v2/resize:fit:1400/1*SCz0aTETjTYC864Bqjt6Og.png"></a>
+        </div>
+        <h2>
+            Loss functions
+        </h2>
+        <p>
+            Loss functions are literally just that, functions which compute how wrong the prediction is. There are various loss functions which are used for different types of tasks. But the most common and simplest one is MSE (Mean squared Error).
+            This is simple the function just looks like this in practice:
+        </p>
+        <p>
+        <div class="quote">
+            y^ = (y^ - y)^2
+        </div>
+        </p>
+        <p>
+            Where <i>y^</i> represents the model's prediction guess, and <i>y</i> represents the target Prediction we want the model to make. We square by 2 for the purposes of heavily penalizing
+            even smaller errors. MSE is basically just the distance from another prediction squared by itself, no more, no less.
+        </p>
         </div>
         <img src="../res/a92.gif"><img src="../res/norton2.gif"><img src="../res/h40.gif"><img src="../res/y53.gif"><img src="../res/y29.gif"><img src="../res/k27.gif">
         <div class="copyright">
             <img src="../res/footerline.gif">
-            © 2025 T.E. Havorford (<a href="https://www.ThomasE.xyz">ThomasE.xyz</a>)
+            © 2026 T.E. Havorford (<a href="https://www.ThomasE.xyz">ThomasE.xyz</a>)
         </div>
         </div>
     </body>

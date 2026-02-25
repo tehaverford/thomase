@@ -189,6 +189,15 @@ body::-webkit-scrollbar-track {
   border-bottom: 1px solid #808080;
 }
 
+ul {
+  list-style-type: square;
+}
+
+.TOC {
+  margin-left: 190px;
+  margin-right: 190px;
+}
+
 body::-webkit-scrollbar-thumb {
   background: #C0C0C0; /* The 'silver' color of the draggable part */
   border-left: 1px solid #fff;
@@ -231,15 +240,15 @@ a {
 }
 
 h1 {
-    color: red;
+    color: rgb(255, 166, 0);
 }
 
 h2 {
-    color: lime;
+    color: rgb(255, 0, 0);
 }
 
 h3 {
-    color: Orange;
+    color: rgb(47, 0, 255);
 }
 
 h1, h2, h3 {
@@ -255,8 +264,9 @@ indent {
 }
 
 .box {
+    padding: 20px;
     background-color: rgba(0, 0, 0, 0.103);
-    border: 5px solid rgb(238, 255, 0);
+    border: 5px solid rgb(89, 0, 255);
 }
 
 .quote {
@@ -282,7 +292,7 @@ indent {
 }
 
 .png img {
-  width: 790px;
+  width: 750px;
   max-height: 700px;
 }
 
