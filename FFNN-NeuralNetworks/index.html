@@ -207,6 +207,9 @@
         <p>
             You can copy the desmos code yourself and play around with it. If all this still does not make sense, again, it will. The best way to learn deeplearning is to <i>do</i> deeplearning and apply it to practical examples.
         </p>
+        <p>
+            Keep in mind that sigmoid is just one of many functions that youu can use to introduce non-linearity. Not all non-linear functions are created equal however. Different functions have different advantages and disadvantages. There's ReLu, tanh, sigmoid, softmax, ELU, etc.
+        </p>
         <h2>FFNN: Training</h2>
         <p>
             How do these Networks 'learn' per say? We'll again, weights and biases (parameters) are the ultimate building blocks to what makes the prediction/output what it is. So, learning is basically just training the network how to adjust the weights in such a way that you get the
@@ -233,9 +236,7 @@
         <div class="png">
             <a href="https://miro.medium.com/v2/resize:fit:1400/1*SCz0aTETjTYC864Bqjt6Og.png"><img src="https://miro.medium.com/v2/resize:fit:1400/1*SCz0aTETjTYC864Bqjt6Og.png"></a>
         </div>
-        <h2>
-            Loss functions
-        </h2>
+        <h2> Loss functions </h2>
         <p>
             Loss functions are literally just that, functions which compute how wrong the prediction is. There are various loss functions which are used for different types of tasks. But the most common and simplest one is MSE (Mean squared Error).
             This is simple the function just looks like this in practice:
@@ -249,7 +250,81 @@
             Where <i>y^</i> represents the model's prediction guess, and <i>y</i> represents the target Prediction we want the model to make. We square by 2 for the purposes of heavily penalizing
             even smaller errors. MSE is basically just the distance from another prediction squared by itself, no more, no less.
         </p>
+        <p>
+            Of course, this is just one of many Loss functions. There's also cross-entropy, binary cross-entropy, etc. You might of noticed by now that there are various ways of doing loss functions and introducing non-linearity, this can get all very confusing on what to use.
+            Decision paralysis! I'll write a seperate post on this, explaining how to know which setup to use relative to your task.
+        </p>
+        <h2>Weight adjusting</h2>
+        <p>
+            Weight adjusting is also known as "optimization" in the world of deeplearning. As stated before, there are various different ways to do optimization. But what we will focus on in this post is the most used and widely adopted.
+        </p>
+        <h3>Gradient based optimization</h3>
+        <p>
+            Gradient based optimization is the process of calculating gradient (derivative with respect to loss function) in such that you can adjust a weight to change the prediction. It effectively answers this question:
+        </p>
+        <p>
+            <div class="quote">
+                "If I move the weight by X much, how much will it affect the prediction?"
+            </div>
+        </p>
+        <p>
+            This is the general intuition that you need to go from. This is all a gradient is, a derivative of sorts which tells the weight it's 'pointed' where to move in order to get the best prediction.
+        </p>
+        <p>
+            In other words, we are trying to get the lowest cost function, the lowest distance from our prediction and target output.
+        </p>
+        <p>The process of adjusting weights via a gradient optimized way to get to the lowest cost function is known as <b><i>Gradient descent</i></b>, a core concept in deep-learning. Visually it looks like this: </p>
+        <div class="png">
+            <div class="boximg">
+            <a href="https://builtin.com/sites/www.builtin.com/files/styles/ckeditor_optimize/public/inline-images/national/gradient-descent-convex-function.png"><img src="https://builtin.com/sites/www.builtin.com/files/styles/ckeditor_optimize/public/inline-images/national/gradient-descent-convex-function.png"></a>
+            </div>
+        </div>
+        <p>
+            This image is my favorite gradient descent image (<i>I know, odd thing to say</i>). That's in a sense that it's great at demonstrating the intuition you should have for it. Think of weights and biases as simply arrows in 3D space. Depending on the value of these parameters, they place you somewhere on the coordinate space.
+            Your goal here, is to move "tug" on these parameters in a direction which will move you lower and lower on the plane, until you reach what is known as the <i>local maxima</i>, the lowest point relative to the closest to the parameters.
+        </p>
+        <p>
+            To be a bit more mathematical on this, a "gradient" is simply a way to calculate a derivative of loss with respect to the weights. There is various different ways that you can calculate a gradient in the world of calculus and machine learning.
+            You can do analytical derivation which uses rule-based logic to see which point gets you the most accurate point in space before going 'down'. You can also use numerical derivation which is more accurate, and efficient.
+        </p>
+        <h3>One fundamental problem</h3>
+        <p>
+            Keep in mind that some gradient descent algorithms are notorious for calculating what I stated above, <i>the local maxima</i>. Although on the surface, this is good, sometimes thel ocal maxima isn't <b>THE</b> lowest. Sometime's it reaches a low, but it's ultimately stuck there.
+            This article is dedicated to neural networks and building a toy one yourself to experiment with, so I won't go too indepth on gradients, derivatives, etc, I'll simply give you the bare minimum that you can experiment with.
+        </p>
 
+        <h3>In summary</h3>
+        <p>
+            Phew! That was a lot of theory. Did you take notes? Don't worry, you can just grab mine:
+        </p>
+
+        <p>
+            <div class="quote">
+                Weights/biases = Parameters of a model, building block what adds up to the prediction <br>
+                <br>
+                Non-Linearity = Functions which break regression scales that build upwards in-order to allow the network to learn more complex patterns <br>
+                <br>
+                Weighted-Sum = The total weighted output of a specific layer after the input was processed through each neuron of said layer <br>
+                <br>
+                Activation = Function which transforms the input with respect to neuron's parameters.<br>
+                <br>
+                Training = Subset of algorithms which automatically adjust weights/biases to improve the model for better predictions on a given dataset. <br>
+                <br>
+                Gradient = Derivative of loss with respect to model's parameters <br>
+                <br>
+                Cost function = Function which calculates how far off the model was from the output it needs to give <br>
+            </div>
+        </p>
+
+        <h2>Feedforward Neural Networks: A Practical implementation</h2>
+        <p>
+            If you are still stuck on understanding the core mechanisms and theory behind Neural Networks, do not worry, I once was as well. Neural Networks are just inherently mathematical in nature,
+            and the best way to understand mathematics is by seeing the concept in practical application, rather than in vague abstract equation soup.
+        </p>
+        <p>
+            In here, I will show you pseudo code that allows you to actually think and translate to your code, so that way you are not blindly-copying. Make sure you absolutely understand everything thats going on even in microsteps before you write down what you see.
+            As doing otherwise will result in you looking at what essentially feels like somebody else's code. Even go back and rewrite the model by yourself if that helps increase understanding, but never blindly copy.
+        </p>
         </div>
         <div class="blinkie-sect">
         <img src="../res/a92.gif"><img src="../res/norton2.gif"><img src="../res/h40.gif"><img src="../res/y53.gif"><img src="../res/y29.gif"><img src="../res/k27.gif">

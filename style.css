@@ -198,6 +198,19 @@ ul {
   margin-right: 190px;
 }
 
+.quote {
+    display: flex;
+    padding: 12px;
+    border: 3px solid #0000;
+    border-radius: 12px;
+    background: linear-gradient(#000000, #585761) padding-box, linear-gradient(
+        var(--angle),
+        #000000,
+        #d2cfd4
+      ) border-box;
+    animation: 5s rotate linear infinite;
+}
+
 .rainbow-box {
   display: flex;
   justify-content: center;
@@ -291,7 +304,7 @@ h2 {
 }
 
 h3 {
-    color: rgb(47, 0, 255);
+    color: rgb(22, 162, 255);
 }
 
 h1, h2, h3 {
@@ -311,13 +324,15 @@ indent {
     background-color: rgba(0, 0, 0, 0.103);
     border: 5px solid rgb(89, 0, 255);
     border-radius: 67px;
-}
-
-.quote {
-    background-color: rgba(8, 8, 8, 0.247);
-    border: 2px solid #cecfc5;
-    border-radius: 20px;
-    padding: 5px;
+    padding: 12px;
+    border: 3px solid #0000;
+    border-radius: 12px;
+    background: linear-gradient(#131219, #131219) padding-box, linear-gradient(
+        var(--angle),
+        #555353,
+        #7113cf
+      ) border-box;
+    animation: 5s rotate linear infinite;
 }
 
 .copyright {
@@ -341,8 +356,25 @@ indent {
 }
 
 .png img {
-  width: 750px;
-  max-height: 700px;
+  /* width: 750px; */
+  /* max-height: 700px; */
+  border-radius: 12px;
+  max-width: 100%;
+  height: auto;
+}
+
+.boximg {
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.103);
+  border: 5px solid rgb(0, 255, 85);
+  border: 5px solid #0000;
+  border-radius: 12px;
+  background: linear-gradient(#131219, #131219) padding-box, linear-gradient(
+      var(--angle),
+        #fbff00,
+        #7113cf
+  ) border-box;
+  animation: 5s rotate linear infinite;
 }
 
 .png2 img {
