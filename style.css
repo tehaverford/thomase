@@ -198,6 +198,48 @@ ul {
   margin-right: 190px;
 }
 
+.rainbow-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  border: 3px solid #0000;
+  border-radius: 12px;
+  background: linear-gradient(#131219, #131219) padding-box, linear-gradient(
+        var(--angle),
+        #fbff00,
+        #9900ff
+      ) border-box;
+  animation: 8s rotate linear infinite;
+}
+
+.gradient-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  border: 3px solid #0000;
+  border-radius: 12px;
+  background: linear-gradient(#131219, #131219) padding-box, linear-gradient(
+        var(--angle),
+        #000000,
+        #787679
+      ) border-box;
+  animation: 8s rotate linear infinite;
+}
+
+
+@keyframes rotate {
+  to {
+    --angle: 360deg;
+  }
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
 body::-webkit-scrollbar-thumb {
   background: #C0C0C0; /* The 'silver' color of the draggable part */
   border-left: 1px solid #fff;
@@ -230,6 +272,7 @@ body {
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
+    padding: 10px;
 
     font-family: "typewriter";
 }
@@ -289,6 +332,9 @@ indent {
     width: 790px;
 }
 
+.blinkie-sect {
+  padding: 10px;
+}
 .footer {
     background-color:rgb(0, 0, 0);
     border: 5px solid;
