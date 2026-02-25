@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>The beautiful simplicity and powerfulness of feedforward Neural Networks | Thomas Haverford</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" type="text/css" href="../style.css">
+        <link rel="icon" href="../res/2467883_08350.gif">
+    </head>
+    <body>
+        <div class="crt">
+        <div class="box">
+        <h3>The beautiful simplicity and powerfulness of feedforward Neural Networks</h3>
+        <p>
+            I haven't been working on this website, posting anything, or really updating it due to my obsession with the topic of deeplearning. Deeplearning is a whole
+            can of worms onto itself, but for simplicity sakes, we'll simply refer to it as Neural Networks.
+        </p>
+
+        <p>
+            There are many types of Neural Networks that are geared towards one specific type of task, but in this post, we'll talk about feedforward Neural Networks.
+        </p>
+
+        <h2>"A Neural network? Like.. the brain?"</h2>
+        <p>
+            Neural Networks are loosely inspired by our own biological Neural Networks as humans. These are the fundamental building blocks of how we as human beings learn and grow
+            as a person. You might know the term 'Neural Networks' based on a pop-article explaining how ChatGPT worked on a surface level.
+        </p>
+
+        <p>
+            Feedforward Neural Networks and biological Neural Networks have their differences and work in fundamentally different ways. So throwout your entire understanding of the human brain
+            and learn about FFNNs (feedforward Neural Networks) as it's own entity.
+        </p>
+        <h2>Feedforward Neural networks</h2>
+        <p>
+            Feedforward Neural Networks are the defacto of machine learning, the process of training computers to learn from data and deal with unknown future input.
+            A good example of this is spam-detection. Back then, (primarily in the 2000's) we had to use rule-based programs to detect and remove spam. This mean't detecting for
+            common keywords such Spam emails would use such as 'FREE%%' or 'BUY 1 AND SELL 1' (phrase) and etc.
+        </p>
+        <p>
+            However, as computers change, people change. And as people change, so does spam. These programs would quickly get very complicated as a byproduct of having to counter every
+            spam email and edge case.
+        </p>
+        <p>
+            Somewhere along the way, the industry found out you can use such FFNNS to not only train it on spam emails, but it can detect future spam emails (wih 98% accuracy) sometimes without even
+            having to retrain it. These FFNNs were eventually the snowball which led to a variety of other use cases.
+        </p>
+        <p>
+            These days, Feedforward Neural Networks are used for a variety of tasks including sentiment analysis, image classification (Although, convolutional Neural Networks have taken their place, seperate post for another time.),
+            Some parts of video game NPCs, etc.
+        </p>
+        <h2>Mechanism of Feedforward Neural Networks</h2>
+        <p>
+            You might think that this technology requires satanic freemasonry black-magic from the dark-order in order to get right, but in reality, it's simply a bunch of addition and multiplication with a slice of calculus all chained together
+            to get the 'intelligence' factor as a byproduct.
+        </p>
+        <div class="png">
+        <img src="https://learnopencv.com/wp-content/uploads/2017/10/mlp-diagram.jpg">
+        </div>
+
+        <p>
+            Neural Networks can be divided into 3 parts:
+        </p>
+        <p>
+            <div class="quote">
+            - The Input Layer (Takes in Data) <br>
+            - The Hidden Layer (Also known as the Thinking layer which transforms data) <br>
+            - The output Layer (Spits out the Output) <br>
+            </div>
+        </p>
+
+        <h3>Each individual Layer</h3>
+        <p>
+            Each layer has it's own respective purpose. The Input layer's job is to take in Data to be transformed before being sent into the Hidden Layer.
+            The Input layer typically take's in vectors (also known as tensors) which look like this in format: {0, 0} depending on the network architecture.
+            Each coefficent of the vector is split and sent into one Neuron (Again, sometimes a different process depending on Network architecture.)
+        </p>
+        <p>
+            For instance, if you 3 values in vector X, then there is usually 3 or more Neurons to receive this data.
+        </p>
+        <p>
+            The Hidden Layer will then receieve this data and transforms it (using Activation function, coming up). This newly transformed data is then sent into the OutputLayer
+            which represents what the "conclusion" the HiddenLayer is 'thinking' of. For instance, if you're dealing with a spam network, and this information is being processed to the Hidden Layer,
+            a trained network's hidden layer will process it and see it is spam, then it'll send the right signal to the OutputLayer indicating that it is indeed spam.
+        </p>
+        <p>
+            The bottom line is:
+        </p>
+        <p>
+            <div class="quote">
+                Input Layer - Receives Data <br>
+                Hidden Layer - Computes and derives conclusion from data <br>
+                Output Layer - Represents conclusion of data from HiddenLayer <br>
+            </div>
+        </p>
+        <h3>Weights and biases</h3>
+        <p>
+            I talk about how this data is 'transformed' and 'processed' before being sent into another layer. But, this is vague language, what does it actually mean?
+            You see, each and every Neuron has a 'weight' and a 'bias' which is connected to another neuron typically in the next Layer. 'Weights and biases' are also referred to
+            as the individual 'parameters' in the network, otherwise the arguments of how to transform data before being passed.
+        </p>
+        <p>
+            <div class="quote">
+                Weights - Numerical Strength connection between Neuron A and Neuron B <br>
+                Bias - Offset to add to the activated value <br>
+            </div>
+        </p>
+        <p>
+            Weights represent how 'strong' the connection between 2 Neurons are. This is done on purpose so that way when data is transformed, the neurons which have a 'strong' weight connection
+            will have a higher activation sum, and therefore make the most amount of impact on the output. Weights are the foundamental building block to how Neural Networks learn and make the correct output.
+            Whereas, a bias's job is to 'offset' the activation value by adding to it. Let's say the activation sum between 2 neurons is 0.4 and the bias is 0.1, well, adding to it, we'll get 0.5.
+        </p>
+        <p>
+            Biases are typically used to slightly offset the output of a network without having to train it to it's absolute precise target output (Output we want the network to give us). This is we don't have to
+            train the network to absolute perfection and risk overfitting (Training the network too much to the point where it misses the mark).
+        </p>
+        <h3>Activation sum</h3>
+        <p>
+            How are weights and biases added with respect to data before being sent into the next Layer? This is known as the activation sum, which looks like such:
+        </p>
+        <p>
+            <div class="quote">
+                y = f(y * w + b) <br>
+            </div>
+        </p>
+        <p>
+            Where <i>y</i> is the output and <i>w</i> represents a single weight and <i>b</i> represents a single bias. The input is multiplied by our weight then adds the bias to it.
+            This activation formula is stretched out for every single Neuron and input coefficent before being sent into the next layer.
+        </p>
+        </div>
+        <img src="../res/a92.gif"><img src="../res/norton2.gif"><img src="../res/h40.gif"><img src="../res/y53.gif"><img src="../res/y29.gif"><img src="../res/k27.gif">
+        <div class="copyright">
+            <img src="../res/footerline.gif">
+            © 2025 T.E. Havorford (<a href="https://www.ThomasE.xyz">ThomasE.xyz</a>)
+        </div>
+        </div>
+    </body>
+</html>
