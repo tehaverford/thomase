@@ -322,8 +322,263 @@
             and the best way to understand mathematics is by seeing the concept in practical application, rather than in vague abstract equation soup.
         </p>
         <p>
-            In here, I will show you pseudo code that allows you to actually think and translate to your code, so that way you are not blindly-copying. Make sure you absolutely understand everything thats going on even in microsteps before you write down what you see.
+            In here, I will show you pseudo code that allows you to actually think and translate to your language of choice, so that way you are not blindly-copying. Make sure you absolutely understand everything thats going on even in microsteps before you write down what you see.
             As doing otherwise will result in you looking at what essentially feels like somebody else's code. Even go back and rewrite the model by yourself if that helps increase understanding, but never blindly copy.
+        </p>
+        <p>
+            Before I go on, I expect that you already have some knowledge of programming and you can write tictactoe program all on your own. What I do <i>NOT</i> expect from you, is that you already have some elite college level understanding of
+            mathematics. The beauty about machine learning, is that you train the model to do the math, not the other way around.
+        </p>
+        <p>
+            Overall, the best advice I can give is that you experiment with the code a shit ton. Learn how each component works, see how it fits in the bigger picture,
+            learn a more intuitive way of how it works, rebuild it, take it apart again, etc.
+        </p>
+        <p>
+            Good luck!
+        </p>
+        <h3>The goal</h3>
+        <p>
+            Before we actually write anything, its best that we know the defined goal. The idea is this: We write a deeplearning feedforward Neural Network completely from scratch without the help of much libraries which handle
+            the work for us. This model will simulate an XOR gate. Why an XOR gate? XOR gates are great for 2 reasons. Number one, it forces the model to have working non-linearity so you aren't tricking yourself into building a linear-regressor
+            with more steps. And number two, it requires a fundamental training technique which serves as the backbone for how a lot of the training will be done regarding other tasks.
+        </p>
+        <p>
+            If you are not familiar with a XOR gate, it's simple. If one component of the input (which is a vector of 2) is true, than output is true. However, if both inputs are same, than the output is false.
+            Here are some examples:
+        </p>
+        <div class="quote">
+            {0, 1} = true <br>
+            {1, 0} = true <br>
+            {0, 0} = false <br>
+            {1, 1} = false <br>
+        </div>
+        <p>
+            I pretty much just covered every edge case this gate has. Hopefully you get the idea!
+        </p>
+        <h3>Finally, the implementation</h3>
+        <p>
+            Okay, enough theory. Let's actually start.
+        </p>
+        <p>
+            The first thing we need is a <i>Neuron</i> class or namespace of sorts. As such it will hold the following properties
+        </p>
+        <div class="quote">
+            - A Weight <br>
+            - A Bias <br>
+        </div>
+        <p>
+            Standard parameters. This Neuron will take in a weight and bias in its constructor, and set those parameters.
+        </p>
+        <p>
+            On pseudo code, this looks like such:
+        </p>
+        <div class="pre">
+            class Neuron
+            {
+                double w;
+                double bias;
+                
+                Neuron(double w, double bias)
+                {
+                    this->w = w;
+                    this->bias = bias;
+                }
+            }
+        </div>
+        <p>
+            This class also needs an activation function whose job is to compute the weighted sum as defined above (hopefully you were paying attention to my mechanisms section.)
+        </p>
+        <div class="pre">
+            class Neuron
+            {
+                double w;
+                double bias;
+                
+                double z;
+
+                Neuron(double w, double bias)
+                {
+                    this->w = w;
+                    this->bias = bias;
+                }
+
+                double activation(double x) {
+                    z = x * w + bias;
+                    return (z);
+                }
+            }
+        </div>
+        <p>
+            Pretty simple so far. See? not so scary! This takes x and multiplies by our weight and adds a bias to it, which is then returned. But wait, why are we storing it into Z before returning it, can't we just return the value without
+            storing it into a buffer of sorts? Yes yes, but this variable <i>z</i> will come into use particularly in our training. It will all make sense.
+        </p>
+        <p>
+            Now, the careful reader might notice that I am not doing what I've just noted when we defined goal of this implementation, and that is to introduce non-linearity.
+            For this task, we will use sigmoid. Let's go ahead and define that in our code.
+        </p>
+         <div class="pre">
+            class Neuron
+            {
+                double w;
+                double bias;
+                
+                double z;
+
+                Neuron(double w, double bias)
+                {
+                    this->w = w;
+                    this->bias = bias;
+                }
+
+                double activation(double x) {
+                    z = x * w + bias;
+                    return sigmoid(z);
+                }
+
+                double sigmoid(double x) {
+                    return 1 / 1 + exp(-x);
+                }
+            }
+            </div>
+        <p>
+            notice that we 'activate' Z and return it's sigmoided value but we don't overwrite Z with the activated value. This is because our training loop needs the raw weighted sum.
+        </p>
+        <p>
+            This all the work thats needed, you've just created an artificial perceptron! Now for the next sub-goal. Now, in order to learn XOR, we actually need a series of these neurons to dedicate the compacity of the network
+            so it can learn the pattern we want it to learn. As you know from before, neural networks are divided into 3 parts, the input layer, hidden layer, and output layer.
+        </p>
+        <p>
+            We need someway to represent this.. Let's introduce the neuralnetwork class!
+        </p>
+        <div class="pre">
+            class NeuralNetwork
+            {
+                int InputLayerSize;
+                int HiddenLayerSize;
+                int OutputLayerSize;
+
+                vector{Neurons} InputLayer;
+                vector{Neurons} HiddenLayer;
+                vector{Neurons} OutputLayer;
+
+                NeuralNetwork(int InputLayerSize, int HiddenLayerSize, int OutputLayerSize) {
+                    this->InputLayerSize = InputLayerSize;
+                    this->HiddenLayerSize = HiddenLayerSize;
+                    this->OutputLayerSize = OutputLayerSize;
+                }
+            }
+        </div>
+        <p>
+            This class's job is to make it easy to define a NeuralNetwork model with the given amount of desired Neurons we want in each layer. This is extremely important as this will allow us
+            to create a degree of 'portability' (so to speak) which will allow us to easily adjust the model's size. This is extremely important because believe it or not, you can have too many neurons
+            in the model.
+        </p>
+        <p>
+            This is one trip, do not let yourself fall into the trap of thinking that more is equated to better for all tasks, this is never the case, and a common beginner mistake.
+        </p>
+        <p>
+            Now, we need to 'populate' the model, by actually creating neurons in these layers. Keep in mind that layers in this context simply means vectors of neurons representing their own
+            respective layer. This may not the best practice, but for practical and teaching sake, this will be the case.
+        </p>
+        <p>
+            Let's define the populate function:
+        </p>
+        <div class="pre">
+            class NeuralNetwork
+            {
+                int InputLayerSize;
+                int HiddenLayerSize;
+                int OutputLayerSize;
+
+                vector{Neurons} InputLayer;
+                vector{Neurons} HiddenLayer;
+                vector{Neurons} OutputLayer;
+
+                NeuralNetwork(int InputLayerSize, int HiddenLayerSize, int OutputLayerSize) {
+                    this->InputLayerSize = InputLayerSize;
+                    this->HiddenLayerSize = HiddenLayerSize;
+                    this->OutputLayerSize = OutputLayerSize;
+
+                    init(InputLayerSize, HiddenLayerSize, OutputLayerSize)
+                }
+
+                void init(int InputLayerSize, int HiddenLayerSize, int OutputLayerSize)
+                {
+                    for every InputLayerSize:
+                        InputLayer.add(Neuron(rand.nextDouble(0.1, 0.5), 1.0));
+
+                    for every HiddenLayerSize:
+                        HiddenLayer.add(Neuron(rand.nextDouble(0.1, 0.5), 1.0));
+
+                    for every OutputLayerSize:
+                        OutputLayer.add(Neuron(rand.nextDouble(0.1, 0.5), 1.0));
+                }
+            }
+        </div>
+        <p>
+            The logic is pretty simple, after we define how big each of our layers have to be, this it immediately passed onto the <i>init</i> function upon receiving the data passed from the constructor.
+        </p>
+        <p>
+            We have a loop for every parameter, and we push a neuron to the layer's corresponding vector which stores all the neurons. Note the rand.nextDouble thing here. You might be wondering why we are bounding this value between 0.1, and 0.5?
+            This is because having weights that are initialized to be way too high will lead to huge amount of training iterations that are required before the model can converge to the prediction that we want during training.
+        </p>
+        <p>
+            0.1, to 0.5 is the ideal initialization we want these weights to have. We will start off with a bias of 1.0, but do know that these WILL be decreased during training. Having a bias of 1.0 will mess up the model's ability to have binary 1 or 0 predictions.
+        </p>
+        <p>
+            Oh! We actually need one last thing to put into the class. This method actually needs a <i>feed</i> function to be able to feed into vectors and receive the transformed new vector after
+            it got processed through all the layers in the model.
+        </p>
+        <p>
+            Let's go ahead and work on such.
+        </p>
+        <div class="pre">
+            class NeuralNetwork
+            {
+                int InputLayerSize;
+                int HiddenLayerSize;
+                int OutputLayerSize;
+
+                vector{Neurons} InputLayer;
+                vector{Neurons} HiddenLayer;
+                vector{Neurons} OutputLayer;
+
+                NeuralNetwork(int InputLayerSize, int HiddenLayerSize, int OutputLayerSize) {
+                    this->InputLayerSize = InputLayerSize;
+                    this->HiddenLayerSize = HiddenLayerSize;
+                    this->OutputLayerSize = OutputLayerSize;
+
+                    init(InputLayerSize, HiddenLayerSize, OutputLayerSize)
+                }
+
+                void init(int InputLayerSize, int HiddenLayerSize, int OutputLayerSize)
+                {
+                    for every InputLayerSize:
+                        InputLayer.add(Neuron(rand.nextDouble(0.1, 0.5), 1.0));
+
+                    for every HiddenLayerSize:
+                        HiddenLayer.add(Neuron(rand.nextDouble(0.1, 0.5), 1.0));
+
+                    for every OutputLayerSize:
+                        OutputLayer.add(Neuron(rand.nextDouble(0.1, 0.5), 1.0));
+                }
+
+                vector{double} feed(vector{double} x) {
+                    vector{double} buffer;
+
+                    for every I in InputLayer.size:
+                        buffer += InputLayer[i].activate(x);
+                    for every I in HiddenLayer.size:
+                        buffer = HiddenLayer[i].activate(buffer);
+                    for every I in OutputLayer.size:
+                        buffer = OutputLayer[I].activate(buffer);
+
+                    return buffer;
+                }
+            }
+        </div>
+        <p>
+            So, what just happened?
         </p>
         </div>
         <div class="blinkie-sect">
@@ -331,7 +586,7 @@
         </div>
         <div class="copyright">
             <img src="../res/footerline.gif">
-            © 2026 T.E. Havorford (<a href="https://www.ThomasE.xyz">ThomasE.xyz</a>)
+            © 2026 T.E. Havorford (<a href="https://www.ThomasE.xyz">www.ThomasE.xyz</a>)
         </div>
         </div>
     </body>
